@@ -1,17 +1,20 @@
-# Imagen base con Java 17 (compatible con Spring Boot 3.x)
+# Java 17, compatible con Spring Boot 3.x
 FROM eclipse-temurin:17-jdk
 
-# Crear el directorio del app
+# Carpeta de trabajo
 WORKDIR /app
 
-# Copiar los archivos del proyecto
+# Copiar todo el proyecto
 COPY . .
 
-# Compilar el proyecto con Maven Wrapper
+# 🔧 Arreglar fin de línea de Windows y dar permiso de ejecución al mvnw
+RUN sed -i 's/\r$//' mvnw && chmod +x mvnw
+
+# Compilar (sin tests)
 RUN ./mvnw -DskipTests package
 
-# Exponer el puerto (Render usará 8080 por defecto)
+# Render setea PORT; Spring lo toma con server.port=${PORT:8080}
 EXPOSE 8080
 
-# Ejecutar el .jar generado
-CMD ["java", "-jar", "target/portfolio-api-1.0.0.jar"]
+# Ejecutar el .jar generado (cualquiera)
+CMD ["sh","-c","java -jar target/*.jar"]
