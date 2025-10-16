@@ -1,20 +1,16 @@
-# Java 17, compatible con Spring Boot 3.x
-FROM eclipse-temurin:17-jdk
-
-# Carpeta de trabajo
+# -------- Stage 1: Build con Maven (sin usar mvnw) --------
+FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
-
-# Copiar todo el proyecto
 COPY . .
+# Compilar sin tests
+RUN mvn -DskipTests package
 
-# 🔧 Arreglar fin de línea de Windows y dar permiso de ejecución al mvnw
-RUN sed -i 's/\r$//' mvnw && chmod +x mvnw
+# -------- Stage 2: Runtime (más liviano) --------
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+# Copiamos el .jar construido
+COPY --from=build /app/target/*.jar app.jar
 
-# Compilar (sin tests)
-RUN ./mvnw -DskipTests package
-
-# Render setea PORT; Spring lo toma con server.port=${PORT:8080}
+# Render expone PORT; Spring lo toma con server.port=${PORT:8080}
 EXPOSE 8080
-
-# Ejecutar el .jar generado (cualquiera)
-CMD ["sh","-c","java -jar target/*.jar"]
+CMD ["java","-jar","app.jar"]
