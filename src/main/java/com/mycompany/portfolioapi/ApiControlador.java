@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://sebakhazzaka2.github.io")
 public class ApiControlador {
 
     private final List<Proyecto> proyectos = new ArrayList<>();
@@ -73,6 +73,14 @@ public class ApiControlador {
         p7.setUrlDemo("https://sebakhazzaka2.github.io/portfolio-sk/");
         p7.setUrlRepo("https://github.com/sebakhazzaka2/portfolio-sk");
         proyectos.add(p7);
+        
+        Proyecto p8 = new Proyecto();
+        p7.setTitulo("Portfolio API (Spring Boot)");
+        p7.setDescripcion("Backend del portfolio");
+        p7.setTecnologia("java");
+        p7.setUrlDemo("https://sebakhazzaka2.github.io/portfolioApi/");
+        p7.setUrlRepo("https://github.com/sebakhazzaka2/portfolioApi");
+        proyectos.add(p8);
     }
 
     @GetMapping("/proyectos")
