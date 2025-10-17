@@ -75,11 +75,11 @@ public class ApiControlador {
         proyectos.add(p7);
         
         Proyecto p8 = new Proyecto();
-        p7.setTitulo("Portfolio API (Spring Boot)");
-        p7.setDescripcion("Backend del portfolio");
-        p7.setTecnologia("java");
-        p7.setUrlDemo("https://sebakhazzaka2.github.io/portfolioApi/");
-        p7.setUrlRepo("https://github.com/sebakhazzaka2/portfolioApi");
+        p8.setTitulo("Portfolio API (Spring Boot)");
+        p8.setDescripcion("Backend del portfolio");
+        p8.setTecnologia("java");
+        p8.setUrlDemo(null);
+        p8.setUrlRepo("https://github.com/sebakhazzaka2/portfolioApi");
         proyectos.add(p8);
     }
 
